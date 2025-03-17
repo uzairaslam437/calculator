@@ -6,37 +6,101 @@
     <title>Calculator</title>
 </head>
 <body>
-    <textarea placeholder="0"></textarea>
+    <textarea placeholder="0" id="textarea"></textarea>
     <div>
         <button onclick="appendNumber('7')" class="number">7</button>
         <button onclick="appendNumber('8')" class="number">8</button>
         <button onclick="appendNumber('9')" class="number">9</button>
-        <button onclick="Multiply()">x</button>
+        <button onclick="appendOperator('x')">x</button>
     </div>
    <div>
         <button onclick="appendNumber('4')" class="number">4</button>
         <button onclick="appendNumber('5')" class="number">5</button>
         <button onclick="appendNumber('6')" class="number">6</button>
-        <button onclick="Divide()">/</button>
+        <button onclick="appendOperator('/')">/</button>
    </div> 
    <div>
         <button onclick="appendNumber('1')" class="number">1</button>
         <button onclick="appendNumber('2')" class="number">2</button>
         <button onclick="appendNumber('3')" class="number">3</button>
-        <button onclick="Add()">+</button>
+        <button onclick="appendOperator('+')">+</button>
    </div>
     <div>
         <button onclick="appendNumber('0')" class="number">0</button>
-         <button class="reset">C</button>
-        <button onclick="Calcualte()">=</button>
-        <button onclick="Subtract()">-</button>
+        <button onclick="defaultDisplay()" class="reset" >C</button>
+        <button onclick="calculate()">=</button>
+        <button onclick="appendOperator('-')">-</button>
     </div>
     
 
     <h3 class="Result"></h3>
     <script>
+        let displayValue = '0';
+        let firstOperand = null;
+        let waitingForSecondOperand = false;
+        // let resetDisplay = false;
+        let operator = null;
+
+        function appendNumber(number){
+            if(displayValue === '0' || waitingForSecondOperand){
+                displayValue = number;
+                waitingForSecondOperand = false;
+            }
+            else{
+                displayValue += number;
+            }
+            updateDisplay();
+        }
+
+        function appendOperator(op){
+            firstOperand = parseInt(displayValue);
+            console.log("first Operand: ",firstOperand);
+            operator = op;
+            waitingForSecondOperand = true;
+            resetDisplay = true;
+            updateDisplay();
+        }
         
+        function updateDisplay(){
+            document.getElementById("textarea").innerText = displayValue;
+        }
+
+        function calculate(){
+            if(waitingForSecondOperand || operator === null) return;
+
+            let inputValue = parseInt(displayValue);
+            const result = performCalculation(firstOperand,inputValue,operator)
+
+            displayValue = String(result);
+            firstOperand = result;
+            waitingForSecondOperand = true;
+            operator = null;
+            updateDisplay();
+        }
+
+        function performCalculation(firstOperand,inputValue,op){
+            console.log("first Operand:",firstOperand," Second Operand: ",inputValue)
+            switch(op){
+                case '+':
+                    return firstOperand + inputValue;
+                case '-':
+                    return firstOperand - inputValue;
+                case 'x':
+                    return firstOperand * inputValue;
+                case '/':
+                    return firstOperand / inputValue;
+                default:
+                    return inputValue;
+            }
+        }
         
+        function defaultDisplay(){
+            displayValue = '0';
+            waitingForSecondOperand = false;
+            firstOperand = '0';
+            operator = null;
+            updateDisplay();
+        }
         
     </script>
 </body>
