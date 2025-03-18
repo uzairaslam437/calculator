@@ -3,33 +3,75 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <title>Calculator</title>
+    <style>
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .calculator-container{
+            border: 1px solid gray;
+            padding: 1rem 1rem;
+            background-color: rgb(61, 60, 60);
+            font-family: "Poppins", sans-serif;
+            font-weight: 100;
+            font-style: normal;
+            
+        }
+        #textarea{
+            padding: 0.5rem 1.5rem;
+            font-size: larger;
+        }
+        .calculator-btn{
+            width: 56px;
+            height: 40px;
+            margin: 3px 2px;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: large;
+        }
+        .digit{
+            background-color: rgb(241, 186, 4);
+        }
+        .operator ,
+        .calculate,
+        .reset{
+            background-color: rgb(110, 109, 109);
+        }
+    </style>
 </head>
 <body>
-    <textarea placeholder="0" id="textarea"></textarea>
-    <div>
-        <button onclick="appendNumber('7')" class="number">7</button>
-        <button onclick="appendNumber('8')" class="number">8</button>
-        <button onclick="appendNumber('9')" class="number">9</button>
-        <button onclick="appendOperator('x')">x</button>
-    </div>
-   <div>
-        <button onclick="appendNumber('4')" class="number">4</button>
-        <button onclick="appendNumber('5')" class="number">5</button>
-        <button onclick="appendNumber('6')" class="number">6</button>
-        <button onclick="appendOperator('/')">/</button>
-   </div> 
-   <div>
-        <button onclick="appendNumber('1')" class="number">1</button>
-        <button onclick="appendNumber('2')" class="number">2</button>
-        <button onclick="appendNumber('3')" class="number">3</button>
-        <button onclick="appendOperator('+')">+</button>
-   </div>
-    <div>
-        <button onclick="appendNumber('0')" class="number">0</button>
-        <button onclick="defaultDisplay()" class="reset" >C</button>
-        <button onclick="calculate()">=</button>
-        <button onclick="appendOperator('-')">-</button>
+    <div class="calculator-container">
+        <textarea placeholder="0" id="textarea"></textarea>
+        <div>
+            <button onclick="appendNumber('7')" class="calculator-btn digit">7</button>
+            <button onclick="appendNumber('8')" class="calculator-btn digit">8</button>
+            <button onclick="appendNumber('9')" class="calculator-btn digit">9</button>
+            <button onclick="appendOperator('x')" class="calculator-btn operator">x</button>
+        </div>
+        <div>
+            <button onclick="appendNumber('4')" class="calculator-btn digit">4</button>
+            <button onclick="appendNumber('5')" class="calculator-btn digit">5</button>
+            <button onclick="appendNumber('6')" class="calculator-btn digit">6</button>
+            <button onclick="appendOperator('/')" class="calculator-btn  operator">/</button>
+        </div> 
+        <div>
+            <button onclick="appendNumber('1')" class="calculator-btn digit">1</button>
+            <button onclick="appendNumber('2')" class="calculator-btn digit">2</button>
+            <button onclick="appendNumber('3')" class="calculator-btn digit">3</button>
+            <button onclick="appendOperator('+')" class="calculator-btn  operator">+</button>
+        </div>
+        <div>
+            <button onclick="appendNumber('0')" class="calculator-btn digit">0</button>
+            <button onclick="defaultDisplay()" class="calculator-btn reset" >C</button>
+            <button onclick="calculate()" class="calculator-btn calculate">=</button>
+            <button onclick="appendOperator('-')" class="calculator-btn operator">-</button>
+        </div>
     </div>
     
 
@@ -38,7 +80,6 @@
         let displayValue = '0';
         let firstOperand = null;
         let waitingForSecondOperand = false;
-        // let resetDisplay = false;
         let operator = null;
 
         function appendNumber(number){
