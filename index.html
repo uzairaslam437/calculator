@@ -22,9 +22,18 @@
             font-style: normal;
             
         }
+        textarea{
+            text-align: left;
+            vertical-align: bottom;
+            line-height: 20px;
+        }
         #textarea{
             padding: 0.5rem 1.5rem;
             font-size: larger;
+            display: flex;
+            align-items: flex-end; /* Align text at the bottom */
+            justify-content: flex-start;
+            
         }
         .calculator-btn{
             width: 56px;
@@ -47,7 +56,7 @@
 </head>
 <body>
     <div class="calculator-container">
-        <textarea placeholder="0" id="textarea"></textarea>
+        <textarea contenteditable="true" placeholder="0" id="textarea"></textarea>
         <div>
             <button onclick="appendNumber('7')" class="calculator-btn digit">7</button>
             <button onclick="appendNumber('8')" class="calculator-btn digit">8</button>
@@ -74,8 +83,6 @@
         </div>
     </div>
     
-
-    <h3 class="Result"></h3>
     <script>
         let displayValue = '0';
         let firstOperand = null;
